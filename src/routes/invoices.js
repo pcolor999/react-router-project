@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, Outlet } from 'react-router-dom';
+import { Link, Outlet, NavLink } from 'react-router-dom';
 import { getInvoices } from '../data.js';
 
 export default function Invoices() {
@@ -8,13 +8,19 @@ export default function Invoices() {
     <div>
       <nav>
         {invoices.map((invoice) => (
-          <Link
-            style={{ display: 'block', margin: '1rem 0' }}
+          <NavLink
+            style={({ isActive }) => {
+              return {
+                display: 'block',
+                margin: '1rem 0',
+                color: isActive ? 'red' : '',
+              };
+            }}
             to={'/invoices/' + invoice.number}
             key={invoice.number}
           >
             {invoice.name}
-          </Link>
+          </NavLink>
         ))}
       </nav>
       <Outlet />
